@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sertifikat Generator</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+body {
+    font-family: 'Times New Roman', Times, serif;
+    background: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+.container {
+    width: 900px;
+    background: white;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    border-radius: 15px;
+}
+/* SERTIFIKAT STILI */
+#sertifikat {
+    position: relative;
+    width: 800px;
+    height: 600px;
+    padding: 50px;
+    text-align: center;
+    color: #333;
+    background: linear-gradient(135deg, #ffffff, #f9f9f9);
+    border: 5px solid #d4af37;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+.ribbon { position: absolute; top: 0; left: 0; width: 150%; height: 80px; background-color: #0d284a; transform: rotate(-45deg) translate(-25%,-50%); transform-origin:0% 0%; box-shadow: 5px 5px 15px rgba(0,0,0,0.3); z-index:10; }
+.corner-decoration {
+    position: absolute;
+    width: 150px; height: 150px;
+    background: radial-gradient(circle at 100% 100%, transparent 40%, #f0d289 40%) 0 0, radial-gradient(circle at 0% 0%, transparent 40%, #f0d289 40%) 100% 100%;
+    background-repeat: no-repeat; z-index:5; opacity:0.8;
+}
+.corner-decoration.top-right{top:-10px; right:-10px; transform:rotate(90deg);}
+.corner-decoration.bottom-left{bottom:-10px; left:-10px; transform:rotate(-90deg);}
+.corner-decoration.bottom-right{bottom:-10px; right:-10px; transform:rotate(180deg);}
+
+#sertifikat .main-content{position: relative; z-index:20; padding:20px;}
+#sertifikat .organization-info{font-size:14px; line-height:1.5; margin-bottom:30px; color:#444; font-weight:bold;}
+#sertifikat h1{color:#0d284a; font-size:58px; margin:20px 0 10px; font-family:'Georgia', serif; letter-spacing:5px; border-bottom:3px solid #0d284a; display:inline-block; padding-bottom:5px;}
+#sertifikat .address-info{font-size:16px; color:#555; margin-bottom:30px;}
+#foydalanuvchi-ismi{font-size:42px; font-weight:bold; color:#0d284a; display:block; margin:30px auto; padding:12px 0; border-bottom:3px dashed #d4af37; width:70%;}
+.main-text{font-size:20px; color:#333; margin:15px 0 30px 0;}
+.note{color:#cc0000; font-style:italic; font-size:14px; margin-bottom:50px;}
+.signature-area{display:flex; justify-content:space-between; align-items:flex-end; padding:0 40px;}
+.signature-area .date-box{text-align:center;}
+.signature-area .date-box p{margin:0; font-size:14px;}
+.qr-code{width:100px; height:100px; border-radius:10px;}
+.controls{margin-top:30px; text-align:center;}
+.controls input{padding:10px; font-size:16px; width:350px; margin-bottom:10px; border:1px solid #ccc; border-radius:5px;}
+.controls button{padding:12px 30px; font-size:16px; cursor:pointer; background-color:#007bff; color:white; border:none; border-radius:5px; margin:8px; transition:0.3s;}
+.controls button:hover{background-color:#0056b3;}
+#download-link-container{margin-top:20px; font-size:16px; color:#0056b3; font-weight:bold;}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div id="sertifikat">
+        <div class="ribbon"></div>
+        <div class="corner-decoration top-right"></div>
+        <div class="corner-decoration bottom-left"></div>
+        <div class="corner-decoration bottom-right"></div>
+
+        <div class="main-content">
+            <div class="organization-info">
+                O'ZBEKISTON RESPUBLIKASI <br>
+                MAKTABGACHA VA MAKTAB TA'LIMI VAZIRLIGI <br>
+                FAN OLIMPIADALARINI O'TKAZISH BOSHQARMASI
+            </div>
+            <h1>SERTIFIKAT</h1>
+            <div class="address-info">
+                Toshkent shahri, Sergeli tumani, PDP School NTM o'quvchisi
+            </div>
+            <h2 id="foydalanuvchi-ismi">[Ism Familiya]</h2>
+            <div class="main-text">
+                10-sinf o'quvchilari uchun Bebras musobaqasida ishtirok etganligi haqida
+            </div>
+            <div class="note">
+                Ushbu sertifikat biron bir imtiyoz kafolatlanmaydi
+            </div>
+            <div class="signature-area">
+                <div class="qr-box">
+                    <img class="qr-code" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/100px-QR_code_for_mobile_English_Wikipedia.svg.png" alt="QR Kod">
+                </div>
+                <div class="date-box">
+                    <p style="text-decoration: underline; font-weight: bold;">EndDate</p>
+                    <p>SANA: 2025-10-02</p>
+                </div>
+                <div style="text-align:right;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Coat_of_arms_of_the_United_States_Department_of_Education.svg" alt="Muvofiq logo" width="80">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <h3>Ma'lumotlarni kiriting:</h3>
+        <input type="text" id="ism-input" placeholder="Ism va Familiyangizni kiriting...">
+        <br>
+        <input type="email" id="email-input" placeholder="Email manzilingizni kiriting...">
+        <br>
+        <button id="yuklab-olish-btn">PDF Yuklab Olish</button>
+        <button id="email-yuborish-btn">Sertifikatni Emailga Yuborish</button>
+
+        <div id="download-link-container" style="display:none;">
+            <p>Sertifikat yaratildi. Yuklab olish:</p>
+            <a id="sertifikat-link" href="#" download="Sertifikat.pdf" style="font-size:18px;color:green;">Sertifikatni Yuklab Olish</a>
+        </div>
+    </div>
+</div>
+
+<script>
+const ismInput = document.getElementById('ism-input');
+const emailInput = document.getElementById('email-input');
+const foydalanuvchiIsmi = document.getElementById('foydalanuvchi-ismi');
+const yuklabOlishBtn = document.getElementById('yuklab-olish-btn');
+const emailYuborishBtn = document.getElementById('email-yuborish-btn');
+const sertifikatElementi = document.getElementById('sertifikat');
+
+ismInput.addEventListener('keyup', function() {
+    foydalanuvchiIsmi.innerText = ismInput.value.trim() || '[Ism Familiya]';
+});
+
+// PDF Options
+const pdfOptions = {
+    margin:0.5,
+    image:{type:'jpeg', quality:0.98},
+    html2canvas:{scale:2, useCORS:true},
+    jsPDF:{unit:'in', format:'letter', orientation:'landscape'}
+};
+
+// PDF Yuklab olish
+yuklabOlishBtn.addEventListener('click', function() {
+    if(!ismInput.value.trim()) { alert("Iltimos, ism va familiyangizni kiriting!"); return; }
+    pdfOptions.filename = `Sertifikat-${ismInput.value.replace(/ /g,'_')}.pdf`;
+    html2pdf().from(sertifikatElementi).set(pdfOptions).save();
+});
+
+// Emailga yuborish
+emailYuborishBtn.addEventListener('click', function() {
+    if(!ismInput.value.trim() || !emailInput.value.trim()) { alert("Iltimos, ism va emailni kiriting!"); return; }
+
+    html2pdf().from(sertifikatElementi).set(pdfOptions).output('blob').then(function(pdfBlob) {
+        const formData = new FormData();
+        formData.append('file', pdfBlob, `Sertifikat-${ismInput.value.replace(/ /g,'_')}.pdf`);
+        formData.append('email', emailInput.value);
+
+        fetch('/send-email', { method:'POST', body:formData })
+        .then(res => res.json())
+        .then(data => alert(data.message))
+        .catch(err => alert("Xatolik yuz berdi: " + err));
+    });
+});
+</script>
+
+</body>
+</html>
